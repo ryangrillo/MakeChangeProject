@@ -1,11 +1,17 @@
 package ChangeMaker;
-
+import java.util.Scanner;
 public class CashRegister {
 
 	public static void main(String[] args) {
-		//need method to calculate change
-		// need a method to handle user input
-		//testing git push
+		Scanner kb = new Scanner(System.in);
+		
+		float priceOfItem;
+		
+		System.out.println("Please enter the Price of the item: ");
+			priceOfItem = kb.nextFloat();
+		System.out.println("You entered: " + priceOfItem);
+			
+		
 	}
 
 }
