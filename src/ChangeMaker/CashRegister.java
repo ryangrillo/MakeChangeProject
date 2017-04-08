@@ -12,6 +12,8 @@ public class CashRegister {
 		String yesOrNo = isThisCorrect(priceOfItem, kb);
 
 		priceOfItem = verify(yesOrNo, priceOfItem, kb);
+		
+		
 
 		kb.close();
 	}// end main
@@ -32,8 +34,6 @@ public class CashRegister {
 
 	// ask cashier if they entered the right amount
 	public static float verify(String yesOrNo, float price, Scanner s) {
-		boolean yes = true;
-		
 		switch (yesOrNo) {
 		case "Y":
 		case "y":
@@ -48,7 +48,11 @@ public class CashRegister {
 			System.out.print("Please enter correct price: ");
 			price = s.nextFloat();
 			String newYesOrNo = isThisCorrect(price, s);
-			verify(newYesOrNo, price, s);		
+			verify(newYesOrNo, price, s);	
+		default:
+			System.out.println("you need to enter a valid dollar amount");
+			enterPrice(s);//loops back to valide price method
+			
 		}// end switch
 		return price;
 	}// end verify method
