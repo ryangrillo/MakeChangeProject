@@ -65,10 +65,28 @@ public class CashRegister {
 	}// end verify method
 	//how much did the customer give?
 	public static float howMuchWasTendered( Scanner t) {
-		System.out.println("How much did the customer give you?");
+		System.out.print("How much did the customer give you?");
 		float givenFromCustomer;
 		givenFromCustomer = t.nextFloat();
 		return givenFromCustomer;
 	}
+	public static void checkIfTenderedCorrect(float checkGivenamount, Scanner yup) {
+		System.out.print("You entered: $" + checkGivenamount + "\nis this correct? (Y/N)");
+		String yayornay = yup.next();
+		switch (yayornay) {
+		case "Y":
+		case "y":
+		case "yes":
+		case "Yes":
+			break;
+		case "N":
+		case "n":
+		case "no":
+		case "No":
+			System.out.print("Please enter correct amount given: ");
+			
+		
+		}//end switch statement
+	}//end "check if tendered correct" method
 	
 }// end class
