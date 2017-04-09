@@ -32,20 +32,42 @@ public class CashRegister {
 		float checkedTender = checkIfTenderedCorrect(tenderedYesorNo, tendered, kb);
 
 		startTransaction(checkedPriceOfItem, checkedTender);
+		
+		//float changeOwed = calc(checkedTender, checkedPriceOfItem);
+		
+		
+		
 
 		kb.close();
-	}
+	}// end start
 
-	public static void startTransaction(float price, float tender) {
+	public static float startTransaction(float price, float tender) {
+		tender = tender * 100;
+		price = price * 100;
+		float diff = 0.0f;
 		if (tender < price) {
 			System.out.println("That is not enough");
-			start();
+			start();// starts program over
 
 		} else if (tender == price) {
 			System.out.println("you get no change");
 		} else {
-			// here's where the logic goes
+			calc(tender, price);
+			diff = tender - price;
+			System.out.println("final use:" + diff);
+			
 		}
+		return diff;
+	}// end start transaction
+
+	public static void denominations(float change) {
+		System.out.println(change);
+	}
+
+	public static float calc(float tend, float pri) {
+		float diff = (tend - pri) / 100;
+		//System.out.println("your change is: " + diff);
+		return diff;
 	}
 
 	public static float enterPrice(Scanner s) {
@@ -69,8 +91,6 @@ public class CashRegister {
 		case "y":
 		case "yes":
 		case "Yes":
-			// System.out.println("The correct price is " + price); <----might
-			// not use
 			break;
 		case "N":
 		case "n":
@@ -83,8 +103,6 @@ public class CashRegister {
 			break;
 		default:
 			System.out.println("you need to enter a valid dollar amount");
-			enterPrice(s);// loops back to validate price method
-
 		}// end switch
 		return price; // returns correct price after it's validated
 	}// end verify method
@@ -118,7 +136,7 @@ public class CashRegister {
 			break;
 		default:
 			System.out.println("You need to enter a valid dollar amount");
-			howMuchWasTendered(yup);
+			start();
 			// String
 		}// end switch statement
 			// System.out.println(checkGivenamount);
