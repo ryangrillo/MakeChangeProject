@@ -42,15 +42,27 @@ public class CashRegister {
 		kb.close();// close scanner
 	}// end start
 
-	public static void denomination (float pennies) {
-		int castedToInt = (int)pennies;
-		float twenties = castedToInt % 2000;
-		System.out.println(twenties);
-			
+	public static void denomination(float pennies) {
+		int penniescastedToInt = (int) pennies;
+		int remainder = penniescastedToInt % 2000;
+		int twenties = penniescastedToInt/2000;
+		if (twenties > 0) {
+			System.out.println("Amount of twenties: " + twenties);
+			System.out.println("remainder:" + remainder);
+		}
+		remainder = remainder/1000;
+		if (remainder > 0) {
+			System.out.println("Amount of Ten's: " + remainder );
+		}
+		remainder = remainder/500;
+		if (remainder > 0) {
+			System.out.println("Amount of 5's: " + remainder);
+		}
 		
 		
 		
 		
+
 	}
 
 	public static float startTransaction(float price, float tender) {
