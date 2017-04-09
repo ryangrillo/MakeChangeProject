@@ -31,22 +31,34 @@ public class CashRegister {
 
 		float checkedTender = checkIfTenderedCorrect(tenderedYesorNo, tendered, kb);
 
-		startTransaction(checkedPriceOfItem, checkedTender);
-		
-		//float changeOwed = calc(checkedTender, checkedPriceOfItem);
-		
-		
-		
+		float penniesOwed = startTransaction(checkedPriceOfItem, checkedTender);
 
-		kb.close();
+		denomination(penniesOwed);
+
+		// System.out.println("final is: " + penniesOwed); testing my result
+
+		// float changeOwed = calc(checkedTender, checkedPriceOfItem);
+
+		kb.close();// close scanner
 	}// end start
+
+	public static void denomination (float pennies) {
+		int castedToInt = (int)pennies;
+		float twenties = castedToInt % 2000;
+		System.out.println(twenties);
+			
+		
+		
+		
+		
+	}
 
 	public static float startTransaction(float price, float tender) {
 		tender = tender * 100;
 		price = price * 100;
 		float diff = 0.0f;
 		if (tender < price) {
-			System.out.println("That is not enough");
+			System.out.println("That is not enough silly, start over");
 			start();// starts program over
 
 		} else if (tender == price) {
@@ -54,8 +66,9 @@ public class CashRegister {
 		} else {
 			calc(tender, price);
 			diff = tender - price;
-			System.out.println("final use:" + diff);
-			
+			System.out.println("your change is: $" + diff / 100);
+			// System.out.println("final use:" + diff); ***testing value***
+
 		}
 		return diff;
 	}// end start transaction
@@ -66,7 +79,7 @@ public class CashRegister {
 
 	public static float calc(float tend, float pri) {
 		float diff = (tend - pri) / 100;
-		//System.out.println("your change is: " + diff);
+		// System.out.println("your change is: " + diff);
 		return diff;
 	}
 
