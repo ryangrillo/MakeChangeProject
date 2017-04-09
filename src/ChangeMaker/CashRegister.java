@@ -42,27 +42,59 @@ public class CashRegister {
 		kb.close();// close scanner
 	}// end start
 
-	public static void denomination(float pennies) {
-		int penniescastedToInt = (int) pennies;
-		int remainder = penniescastedToInt % 2000;
-		int twenties = penniescastedToInt/2000;
+	public static void denomination(float cents) {
+		int centscastedToInt = (int) cents;
+		int totalLeft = centscastedToInt % 2000;
+		int twenties = centscastedToInt / 2000;
+
 		if (twenties > 0) {
 			System.out.println("Amount of twenties: " + twenties);
-			System.out.println("remainder:" + remainder);
+			//System.out.println("remainder after twenties:" + totalLeft);
 		}
-		remainder = remainder/1000;
-		if (remainder > 0) {
-			System.out.println("Amount of Ten's: " + remainder );
+		if (totalLeft / 1000 >= 1) {
+			int tens = totalLeft / 1000;
+			totalLeft = totalLeft % 1000;
+			System.out.println("Amount of Ten's: " + tens);
+			//System.out.println("afte tens remainder is: " + totalLeft);
+			// System.out.println("remainder is : " + remainder);
 		}
-		remainder = remainder/500;
-		if (remainder > 0) {
-			System.out.println("Amount of 5's: " + remainder);
+		if (totalLeft / 500 >= 1) {
+			int fives = totalLeft / 500;
+			totalLeft = totalLeft % 500;
+			if (fives > 0)
+				System.out.println("Amount of fives: " + fives);
+			//System.out.println("afte fives remainder is: " + totalLeft);
 		}
-		
-		
-		
-		
-
+		if (totalLeft / 100 >= 1) {
+			int ones = totalLeft / 100;
+			totalLeft = totalLeft % 100;
+			System.out.println("Amount of ones: " + ones);
+			//System.out.println("afte ones remainder is: " + totalLeft);
+		}
+		if (totalLeft / 25 >= 1) {
+			int quarters = totalLeft / 25;
+			totalLeft = totalLeft % 25;
+			System.out.println("Amount of quarters: " + quarters);
+			//System.out.println("afte quarters remainder is: " + totalLeft);
+		}
+		if (totalLeft / 10 >= 1) {
+			int dimes = totalLeft / 10;
+			totalLeft = totalLeft % 10;
+			System.out.println("Amount of dimes: " + dimes);
+			//System.out.println("afte dimes remainder is: " + totalLeft);
+		}
+		if (totalLeft / 5 >= 1) {
+			int nickels = totalLeft / 5;
+			totalLeft = totalLeft % 5;
+			System.out.println("Amount of nickels: " + nickels);
+			//System.out.println("afte nickels remainder is: " + totalLeft);
+		}
+		if (totalLeft / 1 >= 1) {
+			int penny = totalLeft / 1;
+			totalLeft = totalLeft % 1;
+			System.out.println("Amount of pennies: " + penny);
+			//System.out.println("afte pennies remainder is: " + totalLeft);
+		}
 	}
 
 	public static float startTransaction(float price, float tender) {
