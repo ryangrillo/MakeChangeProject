@@ -22,7 +22,6 @@ public class CashRegister {
 		calculateDenominations(penniesOwed);
 
 		// System.out.println("final is: " + penniesOwed); //testing my result
-		// float changeOwed = calc(checkedTender, checkedPriceOfItem);
 
 		kb.close();// close scanner
 	}// end start
@@ -52,58 +51,33 @@ public class CashRegister {
 
 	public static void calculateDenominations(float cents) {
 		int centscastedToInt = (int) cents;
-		int totalLeft = centscastedToInt % 2000;
-		int twenties = centscastedToInt / 2000;
+		//int totalLeft = centscastedToInt % 2000;
+		//int twenties = centscastedToInt / 2000;
 
-		if (twenties > 0) {
-			System.out.println("Amount of twenties: " + twenties);
-			// System.out.println("remainder after twenties:" + totalLeft);
+//		if (twenties > 0) {
+//			System.out.println("Amount of twenties: " + twenties);
+//			// System.out.println("remainder after twenties:" + totalLeft);
+//		
+		int TotalLeft = centscastedToInt;
+		int newTotalLeft = doMathForEachDenominationCalculation(TotalLeft, "Twenties", 2000);
+		newTotalLeft = doMathForEachDenominationCalculation(newTotalLeft, "Tens", 1000);
+		newTotalLeft = doMathForEachDenominationCalculation(newTotalLeft, "fives", 500);
+		newTotalLeft = doMathForEachDenominationCalculation(newTotalLeft, "Ones", 100);
+		newTotalLeft = doMathForEachDenominationCalculation(newTotalLeft, "quarters", 25);
+		newTotalLeft = doMathForEachDenominationCalculation(newTotalLeft, "dimes", 10);
+		newTotalLeft = doMathForEachDenominationCalculation(newTotalLeft, "nickels", 5);
+		newTotalLeft = doMathForEachDenominationCalculation(newTotalLeft, "pennies", 1);
+		
+	}// end calcDenominations method
+
+	public static int doMathForEachDenominationCalculation(int totalLeft, String denominationType, int divisor) {
+		if (totalLeft / divisor >= 1) {
+			int denom = totalLeft / divisor;
+			totalLeft = totalLeft % divisor;
+			System.out.println("Amount of " + denominationType + " : " + denom);
 		}
-		if (totalLeft / 1000 >= 1) {
-			int tens = totalLeft / 1000;
-			totalLeft = totalLeft % 1000;
-			System.out.println("Amount of Ten's: " + tens);
-			// System.out.println("afte tens remainder is: " + totalLeft);
-			// System.out.println("remainder is : " + remainder);
-		}
-		if (totalLeft / 500 >= 1) {
-			int fives = totalLeft / 500;
-			totalLeft = totalLeft % 500;
-			if (fives > 0)
-				System.out.println("Amount of fives: " + fives);
-			// System.out.println("afte fives remainder is: " + totalLeft);
-		}
-		if (totalLeft / 100 >= 1) {
-			int ones = totalLeft / 100;
-			totalLeft = totalLeft % 100;
-			System.out.println("Amount of ones: " + ones);
-			// System.out.println("afte ones remainder is: " + totalLeft);
-		}
-		if (totalLeft / 25 >= 1) {
-			int quarters = totalLeft / 25;
-			totalLeft = totalLeft % 25;
-			System.out.println("Amount of quarters: " + quarters);
-			// System.out.println("afte quarters remainder is: " + totalLeft);
-		}
-		if (totalLeft / 10 >= 1) {
-			int dimes = totalLeft / 10;
-			totalLeft = totalLeft % 10;
-			System.out.println("Amount of dimes: " + dimes);
-			// System.out.println("afte dimes remainder is: " + totalLeft);
-		}
-		if (totalLeft / 5 >= 1) {
-			int nickels = totalLeft / 5;
-			totalLeft = totalLeft % 5;
-			System.out.println("Amount of nickels: " + nickels);
-			// System.out.println("afte nickels remainder is: " + totalLeft);
-		}
-		if (totalLeft / 1 >= 1) {
-			int penny = totalLeft / 1;
-			totalLeft = totalLeft % 1;
-			System.out.println("Amount of pennies: " + penny);
-			// System.out.println("afte pennies remainder is: " + totalLeft);
-		}
-	}
+		return totalLeft;
+	}// end doMathforeach method
 
 	public static float startTransaction(float price, float tender) {
 		tender = tender * 100;
@@ -162,6 +136,7 @@ public class CashRegister {
 		}
 		return price;
 	}
+
 	public static float howMuchWasTendered(Scanner t) {
 		System.out.print("How much did the customer give you?");
 		float givenFromCustomer;
