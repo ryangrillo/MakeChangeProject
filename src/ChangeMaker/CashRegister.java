@@ -52,7 +52,8 @@ public class CashRegister {
 	public static void calculateDenominations(float cents) {
 		int centscastedToInt = (int) cents;		
 		int TotalLeft = centscastedToInt;
-		int newTotalLeft = doMathForEachDenominationCalculation(TotalLeft, "Twenties", 2000);
+		int newTotalLeft;
+		newTotalLeft = doMathForEachDenominationCalculation(TotalLeft, "Twenties", 2000);
 		newTotalLeft = doMathForEachDenominationCalculation(newTotalLeft, "Tens", 1000);
 		newTotalLeft = doMathForEachDenominationCalculation(newTotalLeft, "fives", 500);
 		newTotalLeft = doMathForEachDenominationCalculation(newTotalLeft, "Ones", 100);
