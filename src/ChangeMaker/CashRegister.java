@@ -22,7 +22,6 @@ public class CashRegister {
 		calculateDenominations(penniesOwed);
 
 		// System.out.println("final is: " + penniesOwed); //testing my result
-
 		kb.close();// close scanner
 	}// end start
 
@@ -49,15 +48,9 @@ public class CashRegister {
 		// in variable
 	}// end priceinputAndCheckIt method
 
+	//Each method runs and sets the remainder equal to the next method underneath it
 	public static void calculateDenominations(float cents) {
-		int centscastedToInt = (int) cents;
-		//int totalLeft = centscastedToInt % 2000;
-		//int twenties = centscastedToInt / 2000;
-
-//		if (twenties > 0) {
-//			System.out.println("Amount of twenties: " + twenties);
-//			// System.out.println("remainder after twenties:" + totalLeft);
-//		
+		int centscastedToInt = (int) cents;		
 		int TotalLeft = centscastedToInt;
 		int newTotalLeft = doMathForEachDenominationCalculation(TotalLeft, "Twenties", 2000);
 		newTotalLeft = doMathForEachDenominationCalculation(newTotalLeft, "Tens", 1000);
@@ -105,7 +98,7 @@ public class CashRegister {
 
 	public static float calc(float tend, float pri) {
 		float diff = (tend - pri) / 100;
-		// System.out.println("your change is: " + diff);
+		// System.out.println("your change is: " + diff); // testing value
 		return diff;
 	}
 
