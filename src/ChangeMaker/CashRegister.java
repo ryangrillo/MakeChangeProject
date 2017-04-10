@@ -5,57 +5,65 @@ import java.util.Scanner;
 public class CashRegister {
 
 	public static void main(String[] args) {
-		start();
+		start(); // <--- Aaron taught me this!!
 
 	}// end main
 
 	public static void start() {
 		Scanner kb = new Scanner(System.in);
 
-		float priceOfItem;
-		float tendered;
+		float checkedPriceOfItem = priceinputAndCheckIt(kb);
 
-		priceOfItem = enterPrice(kb);// asks for price and stores it in variable
+		float checkedTender = tenderInputAndCheckIt(kb);
 
+		// method to convert amount into pennies to make it easier to work with
+		float penniesOwed = startTransaction(checkedPriceOfItem, checkedTender);
+
+		calculateDenominations(penniesOwed);
+
+		// System.out.println("final is: " + penniesOwed); //testing my result
+		// float changeOwed = calc(checkedTender, checkedPriceOfItem);
+
+		kb.close();// close scanner
+	}// end start
+
+	public static float tenderInputAndCheckIt(Scanner kb) {
+		float tendered = howMuchWasTendered(kb);
+
+		String tenderedYesorNo = isThisCorrect(tendered, kb);
+
+		float checkedTender = checkIfTenderedCorrect(tenderedYesorNo, tendered, kb);
+		return checkedTender;
+
+	}
+
+	public static float priceinputAndCheckIt(Scanner kb) {
+		float priceOfItem = enterPrice(kb);// asks for price and stores it in
+											// variable
 		String priceYesOrNo = isThisCorrect(priceOfItem, kb);// asks customer if
 		// price is correct and
 		// keeps looping until
 		// customer says yes
 		float checkedPriceOfItem = verify(priceYesOrNo, priceOfItem, kb);// stores
 																			// correct
-																			// price
+		return checkedPriceOfItem; // price
 		// in variable
-		tendered = howMuchWasTendered(kb);
+	}// end priceinputAndCheckIt method
 
-		String tenderedYesorNo = isThisCorrect(tendered, kb);
-
-		float checkedTender = checkIfTenderedCorrect(tenderedYesorNo, tendered, kb);
-
-		float penniesOwed = startTransaction(checkedPriceOfItem, checkedTender);
-
-		denomination(penniesOwed);
-
-		// System.out.println("final is: " + penniesOwed); testing my result
-
-		// float changeOwed = calc(checkedTender, checkedPriceOfItem);
-
-		kb.close();// close scanner
-	}// end start
-
-	public static void denomination(float cents) {
+	public static void calculateDenominations(float cents) {
 		int centscastedToInt = (int) cents;
 		int totalLeft = centscastedToInt % 2000;
 		int twenties = centscastedToInt / 2000;
 
 		if (twenties > 0) {
 			System.out.println("Amount of twenties: " + twenties);
-			//System.out.println("remainder after twenties:" + totalLeft);
+			// System.out.println("remainder after twenties:" + totalLeft);
 		}
 		if (totalLeft / 1000 >= 1) {
 			int tens = totalLeft / 1000;
 			totalLeft = totalLeft % 1000;
 			System.out.println("Amount of Ten's: " + tens);
-			//System.out.println("afte tens remainder is: " + totalLeft);
+			// System.out.println("afte tens remainder is: " + totalLeft);
 			// System.out.println("remainder is : " + remainder);
 		}
 		if (totalLeft / 500 >= 1) {
@@ -63,37 +71,37 @@ public class CashRegister {
 			totalLeft = totalLeft % 500;
 			if (fives > 0)
 				System.out.println("Amount of fives: " + fives);
-			//System.out.println("afte fives remainder is: " + totalLeft);
+			// System.out.println("afte fives remainder is: " + totalLeft);
 		}
 		if (totalLeft / 100 >= 1) {
 			int ones = totalLeft / 100;
 			totalLeft = totalLeft % 100;
 			System.out.println("Amount of ones: " + ones);
-			//System.out.println("afte ones remainder is: " + totalLeft);
+			// System.out.println("afte ones remainder is: " + totalLeft);
 		}
 		if (totalLeft / 25 >= 1) {
 			int quarters = totalLeft / 25;
 			totalLeft = totalLeft % 25;
 			System.out.println("Amount of quarters: " + quarters);
-			//System.out.println("afte quarters remainder is: " + totalLeft);
+			// System.out.println("afte quarters remainder is: " + totalLeft);
 		}
 		if (totalLeft / 10 >= 1) {
 			int dimes = totalLeft / 10;
 			totalLeft = totalLeft % 10;
 			System.out.println("Amount of dimes: " + dimes);
-			//System.out.println("afte dimes remainder is: " + totalLeft);
+			// System.out.println("afte dimes remainder is: " + totalLeft);
 		}
 		if (totalLeft / 5 >= 1) {
 			int nickels = totalLeft / 5;
 			totalLeft = totalLeft % 5;
 			System.out.println("Amount of nickels: " + nickels);
-			//System.out.println("afte nickels remainder is: " + totalLeft);
+			// System.out.println("afte nickels remainder is: " + totalLeft);
 		}
 		if (totalLeft / 1 >= 1) {
 			int penny = totalLeft / 1;
 			totalLeft = totalLeft % 1;
 			System.out.println("Amount of pennies: " + penny);
-			//System.out.println("afte pennies remainder is: " + totalLeft);
+			// System.out.println("afte pennies remainder is: " + totalLeft);
 		}
 	}
 
@@ -143,28 +151,17 @@ public class CashRegister {
 		// ask cashier if they entered the right amount
 
 	public static float verify(String yesOrNo, float price, Scanner s) {
-		switch (yesOrNo) {
-		case "Y":
-		case "y":
-		case "yes":
-		case "Yes":
-			break;
-		case "N":
-		case "n":
-		case "no":
-		case "No":
-			System.out.print("Please enter correct price: ");
-			price = s.nextFloat();
-			String newYesOrNo = isThisCorrect(price, s);
-			verify(newYesOrNo, price, s);
-			break;
-		default:
-			System.out.println("you need to enter a valid dollar amount");
-		}// end switch
-		return price; // returns correct price after it's validated
-	}// end verify method
-		// how much did the customer give?
+		if ((yesOrNo.equals("Y") || yesOrNo.equals("y") || yesOrNo.equals("Yes") || yesOrNo.equals("yes"))) {
 
+		} else if ((yesOrNo.equals("N") || yesOrNo.equals("n") || yesOrNo.equals("No") || yesOrNo.equals("no"))) {
+			price = priceinputAndCheckIt(s);
+			return price;
+		} else {
+			System.out.print("That is in invalid answer, Please select (Y/N): ");
+			isThisCorrect(price, s);
+		}
+		return price;
+	}
 	public static float howMuchWasTendered(Scanner t) {
 		System.out.print("How much did the customer give you?");
 		float givenFromCustomer;
@@ -172,32 +169,18 @@ public class CashRegister {
 		return givenFromCustomer;
 	}// end "how much tendered" method
 
-	public static float checkIfTenderedCorrect(String yesno, float checkGivenamount, Scanner yup) {
-		// System.out.print("You entered: $" + checkGivenamount + "\nis this
-		// correct? (Y/N)");
-		// yup.next();
-		switch (yesno) {
-		case "Y":
-		case "y":
-		case "yes":
-		case "Yes":
-			break;
-		case "N":
-		case "n":
-		case "no":
-		case "No":
-			System.out.print("Please enter correct amount given: ");
-			checkGivenamount = yup.nextFloat();
-			String newyesno = isThisCorrect(checkGivenamount, yup);
-			checkIfTenderedCorrect(newyesno, checkGivenamount, yup);
-			break;
-		default:
-			System.out.println("You need to enter a valid dollar amount");
-			start();
-			// String
-		}// end switch statement
-			// System.out.println(checkGivenamount);
+	public static float checkIfTenderedCorrect(String yesNo, float checkGivenamount, Scanner yup) {
+		if ((yesNo.equals("Y") || yesNo.equals("y") || yesNo.equals("Yes") || yesNo.equals("yes"))) {
+
+		} else if ((yesNo.equals("N") || yesNo.equals("n") || yesNo.equals("No") || yesNo.equals("no"))) {
+			checkGivenamount = tenderInputAndCheckIt(yup);
+
+		} else {
+			System.out.print("That is in invalid answer, Please select (Y/N): ");
+			isThisCorrect(checkGivenamount, yup);
+		}
 		return checkGivenamount;
+
 	}// end "check if tendered correct" method
 
 }// end class
